@@ -1,0 +1,32 @@
+GET http://localhost:3001/persons
+
+###
+
+GET http://localhost:3001/persons/4
+
+###
+
+GET http://localhost:3001/persons/d69987f8-d896-4773-8981-ed20523501f6
+
+###
+
+POST http://localhost:3001/persons
+Content-Type: application/json
+
+{
+   
+    "number": "Harry Belafonte",
+     "name": "06-36281708"
+}
+
+### No content
+
+POST http://localhost:3001/persons
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:3001/persons/a57dc030-bd4a-4d00-a087-de1fa1d4398e
+
+###
+GET http://localhost:3001/persons/a57dc030-bd4a-4d00-a087-de1fa1d4398e

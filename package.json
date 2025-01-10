@@ -1,10 +1,15 @@
 {
-  "name": "part1",
+  "name": "frontend",
   "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0 --port 8081 ",
+    "dev": "concurrently \"vite --host 0.0.0.0 --port 8081\" \"yarn start-backend\"",
+    "start-backend": "yarn workspace backend start",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

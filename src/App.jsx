@@ -142,7 +142,7 @@ const App = (props) => {
       const message = `${newName} is already added in the phonebook, replace the old number with the new one ?`;
       const userConfirmed = confirm(message);
       if (userConfirmed) {
-        const url = `https://phonebook-backend-2x0o.onrender.com/persons/${updateObject.id}`;
+        const url = `http://localhost:3001/persons/${updateObject.id}`;
         const updatePersonObject = {
           ...updateObject,
           number: newNumber,
@@ -176,10 +176,7 @@ const App = (props) => {
       };
 
       axios
-        .post(
-          "https://phonebook-backend-2x0o.onrender.com/persons",
-          personObject
-        )
+        .post("http://localhost:3001/persons/", personObject)
         .then((response) => {
           setPersons(persons.concat(response.data));
           setKey(key + 1);
@@ -204,7 +201,7 @@ const App = (props) => {
 
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
-      const baseUrl = `https://phonebook-backend-2x0o.onrender.com/persons/${key}`;
+      const baseUrl = `http://localhost:3001/persons/${key}`;
       console.log(baseUrl);
       axios
         .delete(baseUrl)

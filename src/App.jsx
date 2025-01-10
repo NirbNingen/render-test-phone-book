@@ -123,8 +123,6 @@ const App = (props) => {
   const [key, setKey] = useState(props.persons.length + 1);
   const [message, setMessage] = useState("");
 
-  const baseUrl = "https://render-test-phone-book.onrender.com:5000";
-
   useEffect(() => {
     {
       const timer = setTimeout(() => {
@@ -144,7 +142,7 @@ const App = (props) => {
       const message = `${newName} is already added in the phonebook, replace the old number with the new one ?`;
       const userConfirmed = confirm(message);
       if (userConfirmed) {
-        const url = `${baseUrl}/persons/${updateObject.id}`;
+        const url = `/persons/${updateObject.id}`;
         const updatePersonObject = {
           ...updateObject,
           number: newNumber,
@@ -178,7 +176,7 @@ const App = (props) => {
       };
 
       axios
-        .post(`${baseUrl}/persons/`, personObject)
+        .post(`/persons/`, personObject)
         .then((response) => {
           setPersons(persons.concat(response.data));
           setKey(key + 1);
@@ -203,7 +201,7 @@ const App = (props) => {
 
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
-      const baseUrl = `${baseUrl}/persons/${key}`;
+      const baseUrl = `/persons/${key}`;
       console.log(baseUrl);
       axios
         .delete(baseUrl)
@@ -248,9 +246,10 @@ const App = (props) => {
     setFilter(event.target.value);
     return event.target.value;
   };
+
   const matches = filter
     ? persons.filter((person) =>
-        person.name.toLowerCase().includes(filter.toLowerCase())
+        person.name?.toLowerCase().includes(filter?.toLowerCase())
       )
     : [];
 

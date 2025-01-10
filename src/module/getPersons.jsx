@@ -3,9 +3,8 @@ import axios from "axios";
 /* eslint-disable no-undef */
 
 const getPersons = async () => {
-  const baseUrl = "https://render-test-phone-book.onrender.com/persons";
   try {
-    const response = await axios.get(baseUrl);
+    const response = await axios.get("/persons");
     console.log("response: ", response);
     return response.data;
   } catch (error) {

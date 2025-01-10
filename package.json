@@ -8,7 +8,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite --host 0.0.0.0 --port 8081\" \"yarn start-backend\"",
+    "dev": "concurrently \"vite --port 5173 --host 0.0.0.0 \" \"yarn start-backend\"",
     "start-backend": "yarn workspace backend start",
     "build": "vite build",
     "lint": "eslint .",

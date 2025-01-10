@@ -123,7 +123,7 @@ const App = (props) => {
   const [key, setKey] = useState(props.persons.length + 1);
   const [message, setMessage] = useState("");
 
-  const baseUrl = process.env.VITE_API_BASE_URL || "http://localhost:3001";
+  const baseUrl = "https://render-test-phone-book.onrender.com";
 
   useEffect(() => {
     {

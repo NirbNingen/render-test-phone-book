@@ -9,7 +9,13 @@ const app = express();
 app.use(express.static("dist"));
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: "https://render-test-phone-book.onrender.com:8081",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 let persons = [
   {

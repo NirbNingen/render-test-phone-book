@@ -3,9 +3,7 @@ import axios from "axios";
 /* eslint-disable no-undef */
 
 const getPersons = async () => {
-  const baseUrl =
-    process.env.VITE_API_BASE_URL + "/persons" ||
-    "http://localhost:3001/persons";
+  const baseUrl = "https://render-test-phone-book.onrender.com/persons";
   try {
     const response = await axios.get(baseUrl);
     console.log("response: ", response);

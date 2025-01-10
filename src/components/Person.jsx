@@ -9,7 +9,7 @@ const Person = ({ person }) => {
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
       axios
-        .delete(`http://localhost:10000/persons/${key}`)
+        .delete(`http://localhost:3001/persons/${key}`)
         .then((response) => {
           console.log(response);
         })

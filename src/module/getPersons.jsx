@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getPersons = async () => {
   try {
-    const response = await axios.get("http://localhost:10000/persons");
+    const response = await axios.get("http://localhost:3001/persons");
     console.log("response: ", response);
     return response.data;
   } catch (error) {

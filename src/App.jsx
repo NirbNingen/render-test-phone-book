@@ -123,6 +123,8 @@ const App = (props) => {
   const [key, setKey] = useState(props.persons.length + 1);
   const [message, setMessage] = useState("");
 
+  const baseUrl = process.env.VITE_API_BASE_URL || "http://localhost:3001";
+
   useEffect(() => {
     {
       const timer = setTimeout(() => {
@@ -142,7 +144,7 @@ const App = (props) => {
       const message = `${newName} is already added in the phonebook, replace the old number with the new one ?`;
       const userConfirmed = confirm(message);
       if (userConfirmed) {
-        const url = `http://localhost:3001/persons/${updateObject.id}`;
+        const url = `${baseUrl}/persons/${updateObject.id}`;
         const updatePersonObject = {
           ...updateObject,
           number: newNumber,
@@ -176,7 +178,7 @@ const App = (props) => {
       };
 
       axios
-        .post("http://localhost:3001/persons/", personObject)
+        .post(`${baseUrl}/persons/`, personObject)
         .then((response) => {
           setPersons(persons.concat(response.data));
           setKey(key + 1);
@@ -201,7 +203,7 @@ const App = (props) => {
 
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
-      const baseUrl = `http://localhost:3001/persons/${key}`;
+      const baseUrl = `${baseUrl}/persons/${key}`;
       console.log(baseUrl);
       axios
         .delete(baseUrl)

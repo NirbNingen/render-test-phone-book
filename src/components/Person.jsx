@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const Person = ({ person }) => {
+  const baseUrl = process.env.VITE_API_BASE_URL || "http://localhost:3001";
   const deletePerson = (name, key) => {
     console.log("Am I reaching here? ", name);
     const message = `Do you want to delete ${name} ?`;
@@ -9,7 +10,7 @@ const Person = ({ person }) => {
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
       axios
-        .delete(`http://localhost:3001/persons/${key}`)
+        .delete(`${baseUrl}/persons/${key}`)
         .then((response) => {
           console.log(response);
         })

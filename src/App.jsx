@@ -55,26 +55,14 @@ const Button = ({ text, handleClick }) => {
   );
 };
 
-const Persons = ({ filter, matches, persons, deletePerson }) => {
+const Persons = ({ filter, persons, deletePerson }) => {
   return (
     <>
-      {filter && matches.length > 0 ? (
-        <div>
-          {matches.map((match) => (
-            <>
-              <p>
-                {match.name} {match.number}
-              </p>
-              <Button
-                handleClick={() => deletePerson(match.name, match.id)}
-                text="delete"
-              />
-            </>
-          ))}
-        </div>
-      ) : (
-        <div>
-          {persons.map((person) => (
+      <div>
+        {persons
+          .slice()
+          .filter((p) => p.name?.toLowerCase().includes(filter.toLowerCase()))
+          .map((person) => (
             <>
               <p>
                 {person.name} {person.number}
@@ -85,8 +73,7 @@ const Persons = ({ filter, matches, persons, deletePerson }) => {
               />
             </>
           ))}
-        </div>
-      )}
+      </div>
     </>
   );
 };
@@ -244,14 +231,13 @@ const App = (props) => {
     event.preventDefault();
     console.log(event.target.value);
     setFilter(event.target.value);
-    return event.target.value;
   };
 
-  const matches = filter
-    ? persons.filter((person) =>
-        person.name?.toLowerCase().includes(filter?.toLowerCase())
-      )
-    : [];
+  // const matches = filter
+  //   ? persons.filter((person) =>
+  //       person.name?.toLowerCase().includes(filter?.toLowerCase())
+  //     )
+  //   : [];
 
   return (
     <div>
@@ -267,12 +253,7 @@ const App = (props) => {
         grabNumber={grabNumber}
       />
       <h3>Numbers</h3>
-      <Persons
-        filter={filter}
-        matches={matches}
-        persons={persons}
-        deletePerson={deletePerson}
-      />
+      <Persons filter={filter} persons={persons} deletePerson={deletePerson} />
     </div>
   );
 };

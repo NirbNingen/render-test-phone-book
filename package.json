@@ -8,7 +8,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite --host 0.0.0.0 \" \"yarn start-backend\"",
+    "dev": "concurrently \"vite --port 8081 --host 0.0.0.0 \" \"yarn start-backend\"",
     "start-backend": "yarn workspace backend start",
     "build": "vite build",
     "build:ui": "rm -rf dist && npm run build && cp -r dist ../backend",

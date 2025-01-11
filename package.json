@@ -11,6 +11,8 @@
     "dev": "concurrently \"vite --host 0.0.0.0 \" \"yarn start-backend\"",
     "start-backend": "yarn workspace backend start",
     "build": "vite build",
+    "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "cd backend && pwd && json-server -p3001 --watch db.json"

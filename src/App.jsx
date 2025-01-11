@@ -28,7 +28,7 @@ const PersonForm = ({
           value={newName}
           onChange={grabInput}
           required
-          pattern="[a-zA-Z\s]+"
+          pattern="[a-zA-Z\sïéøøèçàäöü]+"
         />
       </div>
       <div>
@@ -62,7 +62,9 @@ const Persons = ({ filter, persons, deletePerson }) => {
       <div>
         {persons
           ?.slice()
-          .filter((p) => p.name?.toLowerCase().includes(filter?.toLowerCase()))
+          ?.filter((p) =>
+            (p.name || "").toLowerCase().includes(filter?.toLowerCase())
+          )
           .map((person) => (
             <>
               <p>
@@ -103,12 +105,26 @@ const Notification = ({ message }) => {
 };
 
 const App = (props) => {
-  const [persons, setPersons] = useState(props.persons);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setPhonenumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [key, setKey] = useState(props.persons.length + 1);
+  const [key, setKey] = useState(uuidv4());
   const [message, setMessage] = useState("");
+
+  const allowedCharsRegex = /^[a-zA-Z\sïéèçàäöü]*$/;
+
+  useEffect(() => {
+    const validPersons = props.persons.filter((person) => {
+      return (
+        typeof person.name === "string" &&
+        typeof person.number === "string" &&
+        typeof person.id === "string"
+      );
+    });
+
+    setPersons(validPersons);
+  }, [props.persons]);
 
   useEffect(() => {
     {
@@ -199,7 +215,10 @@ const App = (props) => {
           );
           console.log("response asfter deletion", response);
         })
-        .then(getPersons().then((p) => setPersons(Object.values(p))))
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== key));
+        }) //(getPersons().then((p) => setPersons(Object.values(p))))
+
         .catch((error) => {
           setMessage(
             `Information about ${name} has already been removed from the server`

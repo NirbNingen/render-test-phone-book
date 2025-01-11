@@ -31,9 +31,9 @@ let persons = [
     number: "23478578290",
   },
   {
+    id: "530c597c-a1c5-4dee-ba67-c225ee9aadcb",
     name: "Magdalena Hezlarova",
     number: "47-23478294",
-    id: "530c597c-a1c5-4dee-ba67-c225ee9aadcb",
   },
   {
     id: "a57dc030-bd4a-4d00-a087-de1fa1d4398e",
@@ -44,6 +44,11 @@ let persons = [
     id: "0a3fd72b-217d-484d-85fb-07c63e96246e",
     name: "Anne Savage",
     number: "24678242920",
+  },
+  {
+    id: "8r3fd72b-345f-879d-89ky-19c34e7547k",
+    name: "Mark van der Streets",
+    number: "06-236781391",
   },
 ];
 

@@ -12,8 +12,7 @@ app.use(express.json());
 
 const corsOptions = {
   // origin: "http://localhost:5173",
-  //"https://render-test-phone-book.onrender.com:8081",
-  origin: process.env.REACT_APP_ORIGIN,
+  origin: "https://render-test-phone-book.onrender.com:8081",
   optionsSuccessStatus: 200,
 };
 

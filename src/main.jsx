@@ -6,7 +6,7 @@ import "./index.css";
 import getPersons from "./module/getPersons";
 
 // axios.defaults.baseURL = "http://localhost:3001";
-axios.defaults.baseUrl = process.env.REACT_APP_BASE_URL; //"https://render-test-phone-book.onrender.com:5000";
+axios.defaults.baseUrl = "https://render-test-phone-book.onrender.com:5000";
 
 const renderApp = async () => {
   const persons = await getPersons();

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import getPersons from "./module/getPersons";
 
 const Filter = ({ filter, grabFilter }) => {
   return (
@@ -60,7 +61,7 @@ const Persons = ({ filter, persons, deletePerson }) => {
     <>
       <div>
         {persons
-          .slice()
+          ?.slice()
           .filter((p) => p.name?.toLowerCase().includes(filter.toLowerCase()))
           .map((person) => (
             <>
@@ -79,7 +80,6 @@ const Persons = ({ filter, persons, deletePerson }) => {
 };
 
 const Notification = ({ message }) => {
-  console.log("Am I reaching the Notification?? with message:", message);
   if (message?.includes("added")) {
     return <div className="success">{message}</div>;
   }
@@ -99,7 +99,7 @@ const Notification = ({ message }) => {
       </div>
     );
   }
-  return <div></div>;
+  return <div>{console.log("Nothing to update")}</div>;
 };
 
 const App = (props) => {
@@ -182,16 +182,14 @@ const App = (props) => {
     }
   };
   const deletePerson = (name, key) => {
-    const text = `Do you want to delete ${name} ${key} ?`;
+    const text = `Do you want to delete ${name}?`;
     const userConfirmed = confirm(text);
     console.log("Am I even getting a name / key", key, name);
 
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
-      const baseUrl = `/persons/${key}`;
-      console.log(baseUrl);
       axios
-        .delete(baseUrl)
+        .delete(`/persons/${key}`)
         .then((response) => {
           console.log(
             "response data after deletion: ",
@@ -201,6 +199,7 @@ const App = (props) => {
           );
           console.log("response asfter deletion", response);
         })
+        .then(getPersons().then((p) => setPersons(Object.values(p))))
         .catch((error) => {
           setMessage(
             `Information about ${name} has already been removed from the server`
@@ -232,12 +231,6 @@ const App = (props) => {
     console.log(event.target.value);
     setFilter(event.target.value);
   };
-
-  // const matches = filter
-  //   ? persons.filter((person) =>
-  //       person.name?.toLowerCase().includes(filter?.toLowerCase())
-  //     )
-  //   : [];
 
   return (
     <div>

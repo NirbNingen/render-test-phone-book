@@ -18,18 +18,3 @@ const renderApp = async () => {
 };
 
 renderApp();
-
-// const persons = await getPersons();
-// const renderApp = async () => {
-//   axios.get(baseUrl).then((response) => {
-//     console.log("response", response, "typeof:", typeof response);
-//     const persons = response.data;
-//     const personsArray = Object.values(persons);
-//     console.log("Persons returning as: ", persons);
-//     ReactDOM.createRoot(document.getElementById("root")).render(
-//       <App key="1" persons={personsArray} />
-//     );
-//   });
-// };
-
-renderApp();

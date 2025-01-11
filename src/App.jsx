@@ -62,7 +62,7 @@ const Persons = ({ filter, persons, deletePerson }) => {
       <div>
         {persons
           ?.slice()
-          .filter((p) => p.name?.toLowerCase().includes(filter.toLowerCase()))
+          .filter((p) => p.name?.toLowerCase().includes(filter?.toLowerCase()))
           .map((person) => (
             <>
               <p>

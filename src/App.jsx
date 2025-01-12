@@ -144,7 +144,6 @@ const App = (props) => {
           ...updateObject,
           number: newNumber,
         };
-        console.log("updated person obj", updatePersonObject);
         axios
           .put(url, updatePersonObject)
           .then((response) => {

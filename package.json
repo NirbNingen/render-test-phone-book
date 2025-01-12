@@ -10,8 +10,9 @@
   "scripts": {
     "dev": "concurrently \"vite --port 8081 --host 0.0.0.0 \" \"yarn start-backend\"",
     "start-backend": "yarn workspace backend start",
+    "build:start": "build:ui && cd backend && yarn start",
     "build": "vite build",
-    "build:ui": "rm -rf dist && npm run build && cp -r dist backend",
+    "build:ui": "rm -rf dist && cd backend && rm -rf dist && cd .. && npm run build && cp -r dist backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "lint": "eslint .",
     "preview": "vite preview",

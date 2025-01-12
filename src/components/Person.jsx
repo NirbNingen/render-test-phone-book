@@ -1,4 +1,13 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
+
+const Button = ({ text, handleClick }) => {
+  return (
+    <>
+      <button onClick={handleClick}>{text}</button>
+    </>
+  );
+};
 
 const Person = ({ person }) => {
   const deletePerson = (name, key) => {
@@ -9,7 +18,7 @@ const Person = ({ person }) => {
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
       axios
-        .delete(`/persons/${key}`)
+        .delete(`/api/persons/${key}`)
         .then((response) => {
           console.log(response);
         })

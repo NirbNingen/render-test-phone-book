@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import getPersons from "./module/getPersons";
 
 const Filter = ({ filter, grabFilter }) => {
   return (
@@ -57,25 +56,23 @@ const Button = ({ text, handleClick }) => {
 };
 
 const Persons = ({ filter, persons, deletePerson }) => {
+  const filteredPersons = persons.filter((item) =>
+    (item.name?.toLowerCase() ?? "").includes(filter.toLowerCase())
+  );
   return (
     <>
       <div>
-        {persons
-          ?.slice()
-          ?.filter((p) =>
-            (p.name || "").toLowerCase().includes(filter?.toLowerCase())
-          )
-          .map((person) => (
-            <>
-              <p>
-                {person.name} {person.number}
-              </p>
-              <Button
-                handleClick={() => deletePerson(person.name, person.id)}
-                text="delete"
-              />
-            </>
-          ))}
+        {filteredPersons.map((person) => (
+          <>
+            <p>
+              {person.name} {person.number}
+            </p>
+            <Button
+              handleClick={() => deletePerson(person.name, person.id)}
+              text="delete"
+            />
+          </>
+        ))}
       </div>
     </>
   );
@@ -109,10 +106,7 @@ const App = (props) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setPhonenumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [key, setKey] = useState(uuidv4());
   const [message, setMessage] = useState("");
-
-  const allowedCharsRegex = /^[a-zA-Z\sïéèçàäöü]*$/;
 
   useEffect(() => {
     const validPersons = props.persons.filter((person) => {
@@ -145,7 +139,7 @@ const App = (props) => {
       const message = `${newName} is already added in the phonebook, replace the old number with the new one ?`;
       const userConfirmed = confirm(message);
       if (userConfirmed) {
-        const url = `/persons/${updateObject.id}`;
+        const url = `/api/persons/${updateObject.id}`;
         const updatePersonObject = {
           ...updateObject,
           number: newNumber,
@@ -162,7 +156,6 @@ const App = (props) => {
             );
             setNewName("");
             setPhonenumber("");
-            setKey(key + 1);
             setMessage(`${newName}'s number was updated`);
           })
           .catch((error) => {
@@ -179,10 +172,9 @@ const App = (props) => {
       };
 
       axios
-        .post(`/persons/`, personObject)
+        .post(`/api/persons/`, personObject)
         .then((response) => {
           setPersons(persons.concat(response.data));
-          setKey(key + 1);
           setNewName("");
           setPhonenumber("");
           setMessage(`${newName} was added to the phonebook`);
@@ -205,7 +197,7 @@ const App = (props) => {
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
       axios
-        .delete(`/persons/${key}`)
+        .delete(`/api/persons/${key}`)
         .then((response) => {
           console.log(
             "response data after deletion: ",
@@ -219,7 +211,7 @@ const App = (props) => {
           setPersons(persons.filter((person) => person.id !== key));
         }) //(getPersons().then((p) => setPersons(Object.values(p))))
 
-        .catch((error) => {
+        .catch(() => {
           setMessage(
             `Information about ${name} has already been removed from the server`
           );
@@ -233,36 +225,40 @@ const App = (props) => {
     setMessage(null);
   };
 
-  const grabInput = (event) => {
+  const handleNameInput = (event) => {
     console.log(event.target.value);
     setNewName(event.target.value);
     return event.target.value;
   };
 
-  const grabNumber = (event) => {
+  const handleNumberInput = (event) => {
     console.log(event.target.value);
     setPhonenumber(event.target.value);
     return event.target.value;
   };
 
-  const grabFilter = (event) => {
+  const handleFilterInput = (event) => {
     event.preventDefault();
     console.log(event.target.value);
-    setFilter(event.target.value);
+    if (event.target.value) {
+      setFilter(event.target.value);
+    } else {
+      setFilter("");
+    }
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
       <Notification message={message} />
-      <Filter filter={filter} grabFilter={grabFilter} />
+      <Filter filter={filter} grabFilter={handleFilterInput} />
       <h3>Add a new</h3>
       <PersonForm
-        addPerson={addPerson}
         newName={newName}
-        grabInput={grabInput}
         newNumber={newNumber}
-        grabNumber={grabNumber}
+        addPerson={addPerson}
+        grabInput={handleNameInput}
+        grabNumber={handleNumberInput}
       />
       <h3>Numbers</h3>
       <Persons filter={filter} persons={persons} deletePerson={deletePerson} />

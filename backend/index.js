@@ -58,18 +58,18 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/persons", (req, res) => {
+app.get("/api/persons", (req, res) => {
   console.log("PERSONS sent as: ", persons);
   res.json({ method: req.method, ...persons });
   console.log("response.json persons is from backend: ", res.json(persons));
 });
 
-app.post("/persons", (req, res) => {
+app.post("/api/persons", (req, res) => {
   console.log("PERSONS sent as: ", persons);
   res.json({ method: req.method, ...req.body });
 });
 
-app.get("/persons/:id", (req, res) => {
+app.get("/api/persons/:id", (req, res) => {
   const id = req.params.id;
   const person = persons.find((person) => person.id === id);
   if (person) {
@@ -81,7 +81,7 @@ app.get("/persons/:id", (req, res) => {
   }
 });
 
-app.delete("/persons/:id", (req, res) => {
+app.delete("/api/persons/:id", (req, res) => {
   console.log("PERSONS sent as: ", persons);
   const id = req.params.id;
   console.log("id is: ", id);

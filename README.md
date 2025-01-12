@@ -13,4 +13,9 @@ The frontend is ready to use any backend hosted under port 3001
 
 And all setup for the backend available at Render.com:
 
-https://phonebook-backend-2x0o.onrender.com
+https://render-test-phone-book.onrender.com
+
+The frontend is served on PORT 8081
+The backend is served on PORT 5000
+
+The frontend is packaged into the backend and served from there.

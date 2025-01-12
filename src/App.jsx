@@ -209,7 +209,7 @@ const App = (props) => {
         })
         .then(() => {
           setPersons(persons.filter((person) => person.id !== key));
-        }) //(getPersons().then((p) => setPersons(Object.values(p))))
+        })
 
         .catch(() => {
           setMessage(

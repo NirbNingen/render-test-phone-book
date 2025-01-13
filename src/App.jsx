@@ -61,19 +61,17 @@ const Persons = ({ filter, persons, deletePerson }) => {
   );
   return (
     <>
-      <div>
-        {filteredPersons.map((person) => (
-          <>
-            <p>
-              {person.name} {person.number}
-            </p>
-            <Button
-              handleClick={() => deletePerson(person.name, person.id)}
-              text="delete"
-            />
-          </>
-        ))}
-      </div>
+      {filteredPersons.map((person) => (
+        <>
+          <p>
+            {person.name} {person.number}
+          </p>
+          <Button
+            handleClick={() => deletePerson(person.name, person.id)}
+            text="delete"
+          />
+        </>
+      ))}
     </>
   );
 };
@@ -248,19 +246,27 @@ const App = (props) => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <Notification message={message} />
-      <Filter filter={filter} grabFilter={handleFilterInput} />
-      <h3>Add a new</h3>
-      <PersonForm
-        newName={newName}
-        newNumber={newNumber}
-        addPerson={addPerson}
-        grabInput={handleNameInput}
-        grabNumber={handleNumberInput}
-      />
-      <h3>Numbers</h3>
-      <Persons filter={filter} persons={persons} deletePerson={deletePerson} />
+      <div className="general">
+        <h2>phonebook</h2>
+        <Notification message={message} />
+        <Filter filter={filter} grabFilter={handleFilterInput} />
+        <h3>add a new person or update a number</h3>
+        <PersonForm
+          newName={newName}
+          newNumber={newNumber}
+          addPerson={addPerson}
+          grabInput={handleNameInput}
+          grabNumber={handleNumberInput}
+        />
+      </div>
+      <div className="general">
+        <h3>numbers</h3>
+        <Persons
+          filter={filter}
+          persons={persons}
+          deletePerson={deletePerson}
+        />
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-GET http://localhost:3001/persons
+GET http://localhost:3001/api/people
 
 ###
 
@@ -6,27 +6,26 @@ GET http://localhost:3001/persons/4
 
 ###
 
-GET http://localhost:3001/persons/d69987f8-d896-4773-8981-ed20523501f6
+GET http://localhost:3001/api/people/d69987f8-d896-4773-8981-ed20523501f6
 
 ###
 
-POST http://localhost:3001/persons
+POST http://localhost:3001/api/people
 Content-Type: application/json
 
 {
-   
-    "number": "Harry Belafonte",
-     "name": "06-36281708"
+    "name": "Robert Zandmeer",
+    "number": "06-2346782"
 }
 
 ### No content
 
-POST http://localhost:3001/persons
+POST http://localhost:3001/api/people/
 Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3001/persons/a57dc030-bd4a-4d00-a087-de1fa1d4398e
+DELETE http://localhost:3001/api/people/6793b004b305a14369f203a0
 
 ###
-GET http://localhost:3001/persons/a57dc030-bd4a-4d00-a087-de1fa1d4398e
+GET http://localhost:3001/api/people/67939155fbe3c124f486f3f5

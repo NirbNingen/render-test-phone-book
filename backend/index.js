@@ -7,8 +7,8 @@ app.use(express.static("dist"));
 app.use(express.json());
 
 const corsOptions = {
-  origin: "http://localhost:8081",
-  // origin: "https://render-test-phone-book.onrender.com:8081",
+  // origin: "http://localhost:8081",
+  origin: "https://render-test-phone-book.onrender.com:8081",
   optionsSuccessStatus: 200,
 };
 

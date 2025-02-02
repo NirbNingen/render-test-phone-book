@@ -6,6 +6,8 @@ const app = express();
 app.use(express.static("dist"));
 app.use(express.json());
 
+require("dotenv").config({ path: "../.env" });
+
 const corsOptions = {
   // origin: "http://localhost:8081",
   origin: "https://render-test-phone-book.onrender.com:8081",
@@ -15,8 +17,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const mongoose = require("mongoose");
-
-require("dotenv").config({ path: "../.env" });
 const url = process.env.MONGODB_URI;
 
 mongoose.set("strictQuery", false);

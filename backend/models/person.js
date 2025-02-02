@@ -17,9 +17,24 @@ mongoose
   });
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-  id: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  number: {
+    type: String,
+    minLength: 8,
+    required: true,
+    match: [
+      /^\d{2}-\d+|^\d{3}-\d+$/,
+      "Number invalid, it should needs a dash after either the second number or the third",
+    ],
+  },
+  id: {
+    type: String,
+    required: true,
+  },
 });
 
 personSchema.set("toJSON", {

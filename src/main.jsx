@@ -5,8 +5,8 @@ import axios from "axios";
 import "./index.css";
 import getPersons from "./module/getPersons";
 
-// axios.defaults.baseURL = "http://localhost:3001";
-axios.defaults.baseURL = "https://render-test-phone-book.onrender.com:5000";
+axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "https://render-test-phone-book.onrender.com:5000";
 
 const renderApp = async () => {
   const persons = await getPersons();

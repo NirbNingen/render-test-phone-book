@@ -96,6 +96,15 @@ const Notification = ({ message }) => {
       </div>
     );
   }
+  if (message?.includes("validation failed")) {
+    return (
+      <div>
+        {console.log("Am I reaching the error condition?", message)}
+        <p className="error">{message}</p>
+      </div>
+    );
+  }
+
   return <div>{console.log("Nothing to update")}</div>;
 };
 
@@ -119,13 +128,12 @@ const App = (props) => {
   }, [props.persons]);
 
   useEffect(() => {
-    {
-      const timer = setTimeout(() => {
-        clearMessage();
-      }, 3000);
+    const timer = setTimeout(() => {
+      clearMessage();
+    }, 3000);
+    console.log("message was changed: ", message);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, [message, setMessage]);
 
   const addPerson = (event) => {
@@ -137,7 +145,7 @@ const App = (props) => {
       const message = `${newName} is already added in the phonebook, replace the old number with the new one ?`;
       const userConfirmed = confirm(message);
       if (userConfirmed) {
-        const url = `/api/persons/${updateObject.id}`;
+        const url = `/api/people/${updateObject.id}`;
         const updatePersonObject = {
           ...updateObject,
           number: newNumber,
@@ -169,7 +177,7 @@ const App = (props) => {
       };
 
       axios
-        .post(`/api/persons/`, personObject)
+        .post(`/api/people/`, personObject)
         .then((response) => {
           setPersons(persons.concat(response.data));
           setNewName("");
@@ -178,8 +186,7 @@ const App = (props) => {
           console.log("Trying to add a person personObject:", personObject);
         })
         .catch((error) => {
-          console.error("There was an error adding the person!", error);
-          setMessage(`Error '${error}' Could not add a person`);
+          setMessage(error?.response?.data?.error);
           setTimeout(() => {
             setMessage(null);
           }, 5000);
@@ -194,7 +201,7 @@ const App = (props) => {
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
       axios
-        .delete(`/api/persons/${key}`)
+        .delete(`/api/people/${key}`)
         .then((response) => {
           console.log(
             "response data after deletion: ",

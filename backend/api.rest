@@ -1,6 +1,6 @@
 GET http://localhost:3001/api/people
 
-###
+### broken get
 
 GET http://localhost:3001/persons/4
 
@@ -14,8 +14,9 @@ POST http://localhost:3001/api/people
 Content-Type: application/json
 
 {
-    "name": "Robert Zandmeer",
-    "number": "06-2346782"
+    "name": "Ro",
+    "number": "06-24242424"
+
 }
 
 ### No content
@@ -23,9 +24,14 @@ Content-Type: application/json
 POST http://localhost:3001/api/people/
 Content-Type: application/json
 
-###
+### wrong ID
 
-DELETE http://localhost:3001/api/people/6793b004b305a14369f203a0
+DELETE http://localhost:3001/api/people/b0454504b305a14369f20566
+
+
+### malformatted ID
+
+DELETE http://localhost:3001/api/people/66
 
 ###
-GET http://localhost:3001/api/people/67939155fbe3c124f486f3f5
+GET http://localhost:3001/api/people/679ce928193e25a16aa80a6f

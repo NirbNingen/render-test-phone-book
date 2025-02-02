@@ -4,7 +4,7 @@ import axios from "axios";
 
 const getPersons = async () => {
   try {
-    const response = await axios.get("/api/persons");
+    const response = await axios.get("/api/people");
     console.log("response: ", response);
     return response.data;
   } catch (error) {

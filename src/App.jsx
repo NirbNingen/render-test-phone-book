@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const Filter = ({ filter, grabFilter }) => {
   return (
@@ -21,27 +20,27 @@ const PersonForm = ({
   return (
     <form onSubmit={addPerson}>
       <div>
-        name:{" "}
+        name:{' '}
         <input
-          type="text"
+          type='text'
           value={newName}
           onChange={grabInput}
           required
-          pattern="[a-zA-Z\sïéøøèçàäöü]+"
+          pattern='[a-zA-Z\sïéøøèçàäöü]+'
         />
       </div>
       <div>
-        number:{" "}
+        number:{' '}
         <input
-          type="tel"
+          type='tel'
           value={newNumber}
           onChange={grabNumber}
           required
-          pattern="[0-9-]+"
+          pattern='[0-9-]+'
         />
       </div>
       <div>
-        <button type="submit">add</button>
+        <button type='submit'>add</button>
       </div>
     </form>
   );
@@ -57,7 +56,7 @@ const Button = ({ text, handleClick }) => {
 
 const Persons = ({ filter, persons, deletePerson }) => {
   const filteredPersons = persons.filter((item) =>
-    (item.name?.toLowerCase() ?? "").includes(filter.toLowerCase())
+    (item.name?.toLowerCase() ?? '').includes(filter.toLowerCase())
   );
   return (
     <>
@@ -68,7 +67,7 @@ const Persons = ({ filter, persons, deletePerson }) => {
           </p>
           <Button
             handleClick={() => deletePerson(person.name, person.id)}
-            text="delete"
+            text='delete'
           />
         </>
       ))}
@@ -77,50 +76,50 @@ const Persons = ({ filter, persons, deletePerson }) => {
 };
 
 const Notification = ({ message }) => {
-  if (message?.includes("added")) {
-    return <div className="success">{message}</div>;
+  if (message?.includes('added')) {
+    return <div className='success'>{message}</div>;
   }
 
-  if (message?.includes("updated")) {
-    console.log("I am hitting the updated condition!!", message);
-    return <div className="success">{message}</div>;
+  if (message?.includes('updated')) {
+    console.log('I am hitting the updated condition!!', message);
+    return <div className='success'>{message}</div>;
   }
-  if (message?.includes("removed")) {
+  if (message?.includes('removed')) {
     return (
       <div>
         {console.log(
-          "Am I reaching the right condition in the notification?",
+          'Am I reaching the right condition in the notification?',
           message
         )}
-        <p className="error">{message}</p>
+        <p className='error'>{message}</p>
       </div>
     );
   }
-  if (message?.includes("validation failed")) {
+  if (message?.includes('validation failed')) {
     return (
       <div>
-        {console.log("Am I reaching the error condition?", message)}
-        <p className="error">{message}</p>
+        {console.log('Am I reaching the error condition?', message)}
+        <p className='error'>{message}</p>
       </div>
     );
   }
 
-  return <div>{console.log("Nothing to update")}</div>;
+  return <div>{console.log('Nothing to update')}</div>;
 };
 
 const App = (props) => {
   const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState("");
-  const [newNumber, setPhonenumber] = useState("");
-  const [filter, setFilter] = useState("");
-  const [message, setMessage] = useState("");
+  const [newName, setNewName] = useState('');
+  const [newNumber, setPhonenumber] = useState('');
+  const [filter, setFilter] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const validPersons = props?.persons?.filter((person) => {
       return (
-        typeof person.name === "string" &&
-        typeof person.number === "string" &&
-        typeof person.id === "string"
+        typeof person.name === 'string' &&
+        typeof person.number === 'string' &&
+        typeof person.id === 'string'
       );
     });
 
@@ -131,7 +130,7 @@ const App = (props) => {
     const timer = setTimeout(() => {
       clearMessage();
     }, 3000);
-    console.log("message was changed: ", message);
+    console.log('message was changed: ', message);
 
     return () => clearTimeout(timer);
   }, [message, setMessage]);
@@ -159,15 +158,15 @@ const App = (props) => {
                 person.id === updateObject.id ? response.data : person
               )
             );
-            setNewName("");
-            setPhonenumber("");
+            setNewName('');
+            setPhonenumber('');
             setMessage(`${newName}'s number was updated`);
           })
           .catch((error) => {
-            console.error("There was an error putting the person!", error);
+            console.error('There was an error putting the person!', error);
           });
       } else {
-        console.log("Aha no changes");
+        console.log('Aha no changes');
       }
     } else {
       const personObject = {
@@ -180,10 +179,10 @@ const App = (props) => {
         .post(`/api/people/`, personObject)
         .then((response) => {
           setPersons(persons.concat(response.data));
-          setNewName("");
-          setPhonenumber("");
+          setNewName('');
+          setPhonenumber('');
           setMessage(`${newName} was added to the phonebook`);
-          console.log("Trying to add a person personObject:", personObject);
+          console.log('Trying to add a person personObject:', personObject);
         })
         .catch((error) => {
           setMessage(error?.response?.data?.error);
@@ -196,7 +195,7 @@ const App = (props) => {
   const deletePerson = (name, key) => {
     const text = `Do you want to delete ${name}?`;
     const userConfirmed = confirm(text);
-    console.log("Am I even getting a name / key", key, name);
+    console.log('Am I even getting a name / key', key, name);
 
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
@@ -204,12 +203,12 @@ const App = (props) => {
         .delete(`/api/people/${key}`)
         .then((response) => {
           console.log(
-            "response data after deletion: ",
+            'response data after deletion: ',
             name,
             key,
             response.data
           );
-          console.log("response asfter deletion", response);
+          console.log('response asfter deletion', response);
         })
         .then(() => {
           setPersons(persons.filter((person) => person.id !== key));
@@ -247,13 +246,13 @@ const App = (props) => {
     if (event.target.value) {
       setFilter(event.target.value);
     } else {
-      setFilter("");
+      setFilter('');
     }
   };
 
   return (
     <div>
-      <div className="general">
+      <div className='general'>
         <h2>phonebook</h2>
         <Notification message={message} />
         <Filter filter={filter} grabFilter={handleFilterInput} />
@@ -266,7 +265,7 @@ const App = (props) => {
           grabNumber={handleNumberInput}
         />
       </div>
-      <div className="general">
+      <div className='general'>
         <h3>numbers</h3>
         <Persons
           filter={filter}

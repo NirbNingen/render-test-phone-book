@@ -8,7 +8,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite --port 8081 --host 0.0.0.0 \" \"yarn start-backend\"",
+    "dev": "concurrently \"vite --port 443 --host 0.0.0.0 \" \"yarn start-backend\"",
     "start-backend": "yarn workspace backend start",
     "build": "vite build",
     "build:ui": "rm -rf dist && cd backend && rm -rf dist && cd .. && npm run build && cp -r dist backend",
@@ -22,6 +22,7 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.7",
     "mongoose": "^8.9.5",
+    "nginx": "^1.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "uuidv4": "^6.2.13"

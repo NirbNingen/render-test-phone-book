@@ -116,7 +116,7 @@ const App = (props) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const validPersons = props.persons.filter((person) => {
+    const validPersons = props?.persons?.filter((person) => {
       return (
         typeof person.name === "string" &&
         typeof person.number === "string" &&
@@ -125,7 +125,7 @@ const App = (props) => {
     });
 
     setPersons(validPersons);
-  }, [props.persons]);
+  }, [props?.persons]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

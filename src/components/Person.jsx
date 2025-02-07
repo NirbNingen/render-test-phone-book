@@ -18,7 +18,7 @@ const Person = ({ person }) => {
     if (userConfirmed) {
       console.log(`${name} has been deleted.`);
       axios
-        .delete(`/api/persons/${key}`)
+        .delete(`/api/people/${key}`)
         .then((response) => {
           console.log(response);
         })
@@ -31,13 +31,11 @@ const Person = ({ person }) => {
   };
   return (
     <>
-      <p>
-        {person.name} {person.number}
-        <Button
-          handleClick={() => deletePerson(person.name, person.id)}
-          text="delete"
-        />
-      </p>
+      {person?.name} {person?.number}
+      <Button
+        handleClick={() => deletePerson(person?.name, person?.id)}
+        text="delete"
+      />
     </>
   );
 };

@@ -10,7 +10,7 @@ require("dotenv").config({ path: "../.env" });
 
 const corsOptions = {
   // origin: "http://localhost:8081",
-  origin: "https://render-test-phone-book.onrender.com:8081",
+  origin: "https://render-test-phone-book.onrender.com:443",
   optionsSuccessStatus: 200,
 };
 
